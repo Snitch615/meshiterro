@@ -5,14 +5,19 @@ class PostImagesController < ApplicationController
 	def create #投稿画像を保存,投稿データを保存,投稿データを保存するには、Strong Parametersも必要
 		@post_image = PostImage.new(post_image_params)
 		@post_image.user_id = current_user.id
-		@post_image.save
-		redirect_to post_images_path
+		if @post_image.save
+		  redirect_to post_images_path
+		else
+		  render :new #render :アクション名で、同じコントローラ内の別アクションのViewを表示できます。
+		  #呼び出し先でインスタンス変数が使われていると、呼び出し元で定義されていなければエラーになるので注意が必要です。
+		end
 	end
 	def index #投稿画像のリストを表示する画面を作る
-		@post_images = PostImage.all
+		@post_images = PostImage.page(params[:page]).reverse_order
 	end
 	def show #投稿画像の詳細を表示する画面を作る
 		@post_image = PostImage.find(params[:id])
+		@post_comment = PostComment.new
 	end
 	private
     def post_image_params

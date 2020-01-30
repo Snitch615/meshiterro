@@ -27,13 +27,14 @@
                       <%= post_image.user.name %> <!--post_image変数のuser_idに関連付けられているuserモデルのnameカラムを表示-->
                     </li>
                     <li>
-                    <a href="#">23 コメント</a>
+                      <%= link_to "#{post_image.post_comments.count} コメント", post_image_path(post_image.id) %>
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
             <% end %>
+            <%= paginate @post_images, class: "paginate" %>
         </div>
       </div>
     </div>
