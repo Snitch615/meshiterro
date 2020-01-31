@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   	resource :post_comments, only: [:create, :destroy] #単数にすると、そのコントローラのidがリクエストに含まれなくなります
   	#今回、コメントの詳細ページは作成しません。post_commentsのshowページが不要で、idの受け渡しも必要ないので、resourceとなっています
   end
-  resources :users, only: [:show]
+  resources :users, only: [:show, :edit, :update]
   #resources :controller名
 end
