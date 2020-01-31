@@ -19,6 +19,12 @@ class PostImagesController < ApplicationController
 		@post_image = PostImage.find(params[:id])
 		@post_comment = PostComment.new
 	end
+	def destroy
+		@post_image = PostImage.find(params[:id])
+		@post_image.destroy
+		redirect_to post_images_path
+		#@post_image = PostImage.find(params[:id])は、resourcesルーティングのdestroyで渡ってきたパラメータ（params[:id]）を元に、findメソッドを使って削除データを探し、@post_imageインスタンスに渡しています。@post_image.destroyでは、@post_imageインスタンスで渡されたデータを、destroyメソッドで削除しています。
+	end
 	private
     def post_image_params
         params.require(:post_image).permit(:shop_name, :image, :caption)
